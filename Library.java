@@ -6,9 +6,11 @@ public class Library {
 	private int numResources;
 	private int max;
 	
-	public Library() {
-		//TODO: constructor
-		//set max
+	public Library(int max) {
+		
+		this.max = max;
+		resourcesBorrowed = new Resource[max];
+		//initializes array but does *not* allocate memory to the resources, only to the references *to* resources that have yet to be created
 	}
 	
 	public boolean inputResource(Scanner in, MyDate today) {
