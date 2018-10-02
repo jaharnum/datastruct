@@ -14,7 +14,53 @@ public class Library {
 	}
 	
 	public boolean inputResource(Scanner in, MyDate today) {
-		//TODO: what kind of resource?
+		
+		boolean typeSelected = false;
+		
+		do {
+			System.out.println("What type of resource would you like to borrow?");
+			System.out.println("Options: ");
+			System.out.println("B for book");
+			System.out.println("D for DVD");
+			System.out.println("M for magazine");
+			System.out.println("O for other");
+			
+			String resourceType = in.next();
+			
+			if (resourceType.equalsIgnoreCase("B")) {
+				//book
+				resourcesBorrowed[numResources] = new Book();
+				typeSelected = true;
+				
+			} else if (resourceType.equalsIgnoreCase("D")) {
+				//dvd
+				resourcesBorrowed[numResources] = new DVD();
+				typeSelected = true;
+				
+			} else if (resourceType.equalsIgnoreCase("M")) {
+				//magazine
+				resourcesBorrowed[numResources] = new Magazine();
+				typeSelected = true;
+				
+			} else if (resourceType.equalsIgnoreCase("O")) {
+				//other
+				resourcesBorrowed[numResources] = new Resource();
+				typeSelected = true;
+				
+			} else {
+				System.out.println("Sorry, that's not a valid option");
+				
+			}
+		} while (!typeSelected);
+		
+		if (resourcesBorrowed[numResources].inputResource(in, today)) {
+			if(numResources<max) {
+				numResources++;
+			} else {
+				//TODO: handle resources exceeding the max
+			}
+		}
+		
 		//resourcesBorrowed[numResources] = new ((Resource));
 		//resourcesBorrowed[numResources].inputResource(in, today);
 		//if that = true, then numResources ++ as long as its not greater than the max num of resources

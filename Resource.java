@@ -12,10 +12,15 @@ public class Resource {
 	}
 	
 	public boolean inputResource(Scanner in, MyDate today) {
-		//to add new resources being taken out
+		//to add new resources being taken out of the library
 		
-		this.dueDate = today; //due two weeks from today - how do we calculate this with just an addOne()?
+		
+		this.dueDate = new MyDate();
+		this.dueDate = today.calcDueDate(); //due two weeks from today
+		
+		
 		return true;
+		
 	}
 	
 	public String toString() {

@@ -81,15 +81,52 @@ public class MyDate {
 	
 	public void addOne() {
 		//add an extra day & handle change in month/year as needed
+		if (this.day > 31 || (this.month == 2 && this.day > 29) || (this.day > 30 && (this.month == 9 ||this.month == 4 ||this.month == 6 ||this.month == 11) ) ) {
+			this.day++;
+		} else {
+			if (this.month != 12) {
+				this.month++;
+				this.day = 1;
+			} else {
+				this.year++;
+				this.month = 1;
+				this.day = 1;
+			}
+		}
+		
+	}
+	
+	public MyDate calcDueDate() { //adds 14 days to give us the due date for an item
+		
+		MyDate dueDate = new MyDate();
+		dueDate = this; //dueDate = current value of MyDate used to call calcDueDate
+		
+		for(int i=0; i<14; i++) {
+			dueDate.addOne();
+		}
+		
+		return dueDate;
 	}
 	
 	public boolean isEqual(MyDate dueDate) {
 		//compare two dates to see if they are equal
+		if (this.year==dueDate.year && this.month==dueDate.month && this.day==dueDate.day) {
 		return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public boolean isGreaterThan(MyDate dueDate) {
 		//if today > dueDate, return true
-		return true;
+		if(this.year>dueDate.year) {
+			return true;
+		} else if (this.year==dueDate.year && this.month>dueDate.month) {
+			return true;
+		} else if (this.year==dueDate.year && this.month==dueDate.month && this.day>dueDate.day) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
