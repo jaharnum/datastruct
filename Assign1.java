@@ -1,6 +1,14 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Purpose:  This class is the method main for Assignment 1
+ * It contains the main menu options for the user.
+ * @author Jamie Harnum
+ * Course: CST8130
+ * Lab Section: 313
+ * Known Issues: There is no handling for spaces being input
+ */
 public class Assign1 {
 
 	public static void main(String[] args) {
@@ -13,10 +21,9 @@ public class Assign1 {
 		
 		Scanner in = new Scanner(System.in);
 		
-		do { //menu
+		do { //menu until 6 is selected
 			
-			
-			System.out.println("Welcome to the library checkout system");
+			System.out.println("Library Checkout System Menu");
 			System.out.println("---------------------------------");
 			System.out.println("Enter 1 to add a resource to borrow");
 			System.out.println("Enter 2 to display overdue items");
@@ -42,26 +49,35 @@ public class Assign1 {
 				
 				//add resource to borrow
 				if (myLib.inputResource(in, todayDate)) {
-					//print the resource you just added and the due date
+					System.out.println("Resource has been successfully added");
+				} else {
+					System.out.println("Something went wrong - resource has not been added.");
 				}
-			
-				
+	
 			} else if (option==2) {
 				
 				//display overdue items
+				System.out.println(myLib.resourcesOverdue(todayDate));
 				
 			} else if (option==3) {
 				
 				//display currently checked out resources (entire array)
+				System.out.println(myLib.toString());
 			
 			} else if (option==4) {
 				
+				//display all items first
+				System.out.println(myLib.toString());
 				//delete borrowed resource
+				myLib.deleteResource(in, todayDate);
+			
+				//display all items again to verify that it worked lol
+				System.out.println(myLib.toString());
 				
 			} else if (option==5) {
 				
 				//change today's date
-				System.out.println("5: Change today's date");
+				System.out.println("Change today's date");
 				todayDate.inputDate(in);
 				
 			} else if (option>6 || option<1) {
@@ -69,7 +85,9 @@ public class Assign1 {
 				System.out.println("Invalid option, please input a value between 1 and 6");
 				
 			}
-					
+			
+			option=0; //reset option to 0 so that if user inputs a bad value on the next go around it won't automatically do whatever the last successful option was
+			
 		} while (option!=6); //continue to show menu until user selects 6
 		
 		in.close();

@@ -1,25 +1,23 @@
 import java.util.Scanner;
 
-/************************************************************************************************************
-Purpose:  This class will model a simple date by keeping day, month and year information.   Leap years are NOT
-               accommodated in this class.
-Author:  Linda Crane and Jamie Harnum
-Course: F2018 - CST8130
-Lab Section: 313
-Data members:  day : int - value between 1 and 31 inclusive (depending on value in month)
-               month: int - value between 1 and 12 inclusive
-               year: int - positive value
-Methods: default constructor - sets date to Jan 1, 2018
-         toString (): String - prints date in year/moht/day format
-         inputDate(Scanner): boolean - reads a valid date from the Scanner parameter and returns through
-                                       boolean success or not
-         addOne(): void - adds one to the day field and then adjusts month and year as needed. 
-         isEqual(MyDate): checks if the date is equal to a specified date
-         isGreaterThan(MyDate): checks if the day is greater than a specified date                                             
-         
-
-*************************************************************************************************************/
-
+/**
+ * Purpose:  This class models a simple date by keeping day, month, and year information. Leap years are not accomodated in this class.
+ * @author Jamie Harnum
+ * Course: CST8130
+ * Lab Section: 313
+ * Data Members: 	day : int - value between 1 and 31 inclusive (depending on value in month)
+               		month: int - value between 1 and 12 inclusive
+               		year: int - positive value
+               		
+ * Methods: 		default constructor - sets date to Jan 1, 2018
+         			toString (): String - prints date in year/month/day format
+         			inputDate(Scanner): boolean - reads a valid date from the Scanner parameter and returns through boolean if the input was successful or not
+         			addOne(): void - adds one to the day field and then adjusts month and year as needed. 
+         			isEqual(MyDate): checks if the date is equal to a specified date
+         			isGreaterThan(MyDate): checks if the day is greater than a specified date
+         			calcDueDate(MyDate): calculates a due date two weeks from the specified date.    
+ * 
+ */
 public class MyDate {
 
 	private int year;
@@ -76,12 +74,12 @@ public class MyDate {
 	
 	
 	public String toString() {
-		return "Date: " + this.month + "/" + this.day + "/" + this.year;
+		return this.month + "/" + this.day + "/" + this.year;
 	}
 	
 	public void addOne() {
 		//add an extra day & handle change in month/year as needed
-		if (this.day > 31 || (this.month == 2 && this.day > 29) || (this.day > 30 && (this.month == 9 ||this.month == 4 ||this.month == 6 ||this.month == 11) ) ) {
+		if (this.day < 31 || (this.month == 2 && this.day < 29) || (this.day < 30 && (this.month == 9 ||this.month == 4 ||this.month == 6 ||this.month == 11) ) ) {
 			this.day++;
 		} else {
 			if (this.month != 12) {
@@ -99,7 +97,9 @@ public class MyDate {
 	public MyDate calcDueDate() { //adds 14 days to give us the due date for an item
 		
 		MyDate dueDate = new MyDate();
-		dueDate = this; //dueDate = current value of MyDate used to call calcDueDate
+		dueDate.day = this.day;
+		dueDate.month = this.month;
+		dueDate.year = this.year;
 		
 		for(int i=0; i<14; i++) {
 			dueDate.addOne();
